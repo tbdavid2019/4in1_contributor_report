@@ -2,7 +2,7 @@
 
 # Slack 相關設定
 SLACK_CHANNEL="git-wts"
-SLACK_TOKEN="xoxp-6471242945475-6483989073009-6507763851474-26a7419e1ef1a66c3c7436bb733c353b"
+SLACK_TOKEN="xoxp-xxx"
 
 # 獲取日期區間
 today=$(date "+%Y-%m-%d")
