@@ -13,7 +13,7 @@ first_day_of_last_seven_days=$(date -d "7 days ago" "+%Y-%m-%d")
 yesterday=$(date -d "yesterday" "+%Y-%m-%d")
 
 # 創建 log 資料夾（如果不存在）
-WORK_DIR="/home/davidlinux/git"
+WORK_DIR="/home/david/git"
 log_folder="logs4in1"
 mkdir -p ${WORK_DIR}/${log_folder}
 
@@ -33,25 +33,24 @@ generate_csv() {
         cd "$current_dir/$folder"
 
         # 獲取作者列表
-        authors=$(git log --since="$start_date" --until="$end_date" --format='%ae' | sort -u)
+        authors=$(git log --all --since="$start_date" --until="$end_date" --format='%ae' | sort -u)
 
         # 循環遍歷每個作者
         for author in $authors; do
             # 獲取作者的提交數
-            commits=$(git log --author="$author" --since="$start_date" --until="$end_date" --oneline | wc -l)
+            commits=$(git log --all --author="$author" --since="$start_date" --until="$end_date" --oneline | wc -l)
 
             # 獲取作者新增行數和刪除行數
-            additions=$(git log --author="$author" --since="$start_date" --until="$end_date" --format='%n' --numstat | awk '{s+=$1} END {print s}')
-            deletions=$(git log --author="$author" --since="$start_date" --until="$end_date" --format='%n' --numstat | awk '{s+=$2} END {print s}')
+            additions=$(git log --all --author="$author" --since="$start_date" --until="$end_date" --format='%n' --numstat | awk '{s+=$1} END {print s}')
+            deletions=$(git log --all --author="$author" --since="$start_date" --until="$end_date" --format='%n' --numstat | awk '{s+=$2} END {print s}')
 
-            # 打印結果到 CSV 文件
+            # 列印結果到 CSV 文件
             echo "$folder,$author,$commits,$additions,$deletions" >> $csv_file_name
         done
     done
 
     # 返回到原始目錄位置
     cd "$current_dir"
-}
 
 
 
